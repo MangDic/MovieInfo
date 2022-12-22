@@ -37,6 +37,8 @@
 		DA413F862952DF1F00DC9F63 /* HomeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F852952DF1F00DC9F63 /* HomeReactor.swift */; };
 		DA413F8A2952ED2E00DC9F63 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F892952ED2E00DC9F63 /* MovieCell.swift */; };
 		DA413F8C2952F58D00DC9F63 /* DetailReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F8B2952F58D00DC9F63 /* DetailReactor.swift */; };
+		DA413F902953050B00DC9F63 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F8F2953050B00DC9F63 /* SearchViewController.swift */; };
+		DA413F93295306E500DC9F63 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F92295306E500DC9F63 /* UIScrollView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,8 @@
 		DA413F852952DF1F00DC9F63 /* HomeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReactor.swift; sourceTree = "<group>"; };
 		DA413F892952ED2E00DC9F63 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		DA413F8B2952F58D00DC9F63 /* DetailReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReactor.swift; sourceTree = "<group>"; };
+		DA413F8F2953050B00DC9F63 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		DA413F92295306E500DC9F63 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 		DA413F182951700A00DC9F63 /* MovieInfo */ = {
 			isa = PBXGroup;
 			children = (
+				DA413F91295306D600DC9F63 /* Extensions */,
 				DA413F782951801000DC9F63 /* Model */,
 				DA413F71295178E800DC9F63 /* Service */,
 				DA413F632951720200DC9F63 /* Coordinator */,
@@ -170,6 +175,7 @@
 		DA413F5F2951717600DC9F63 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DA413F8E2953050200DC9F63 /* Search */,
 				DA413F8D2952FD7900DC9F63 /* Detail */,
 				DA413F842952DF1200DC9F63 /* Home */,
 			);
@@ -259,6 +265,22 @@
 				DA413F8B2952F58D00DC9F63 /* DetailReactor.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		DA413F8E2953050200DC9F63 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				DA413F8F2953050B00DC9F63 /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		DA413F91295306D600DC9F63 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DA413F92295306E500DC9F63 /* UIScrollView+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,11 +436,13 @@
 				DA413F7A2951801400DC9F63 /* Movie.swift in Sources */,
 				DA413F8C2952F58D00DC9F63 /* DetailReactor.swift in Sources */,
 				DA413F682951722E00DC9F63 /* InitFlow.swift in Sources */,
+				DA413F902953050B00DC9F63 /* SearchViewController.swift in Sources */,
 				DA413F1A2951700A00DC9F63 /* AppDelegate.swift in Sources */,
 				DA413F752951795D00DC9F63 /* MovieService.swift in Sources */,
 				DA413F6A295172A600DC9F63 /* MainSteps.swift in Sources */,
 				DA413F73295178FD00DC9F63 /* NetworkContoller.swift in Sources */,
 				DA413F6E295173F600DC9F63 /* AppStepper.swift in Sources */,
+				DA413F93295306E500DC9F63 /* UIScrollView+.swift in Sources */,
 				DA413F862952DF1F00DC9F63 /* HomeReactor.swift in Sources */,
 				DA413F6C2951732D00DC9F63 /* HomeFlow.swift in Sources */,
 				DA413F8A2952ED2E00DC9F63 /* MovieCell.swift in Sources */,

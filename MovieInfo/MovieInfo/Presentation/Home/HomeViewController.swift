@@ -17,9 +17,12 @@ import ReactorKit
 class HomeViewController: UIViewController {
     var disposeBag = DisposeBag()
     
-    let requestTrigger = PublishRelay<Void>()
+    var currentPage = 1
+    let loadTrigger = PublishRelay<Void>()
     
     let movieRelay = BehaviorRelay<[Movie]>(value: [])
+    let isScrollingRelay = BehaviorRelay<Bool>(value: false)
+    
     let flowLayout = UICollectionViewFlowLayout()
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
@@ -40,7 +43,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
-        requestTrigger.accept(())
+        loadTrigger.accept(())
     }
     
     private func setupLayout() {
@@ -70,6 +73,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        print("End")
+    }
+}
+
 extension HomeViewController: View {
     func bind(reactor: HomeReactor) {
         bindAction(reactor)
@@ -77,8 +86,14 @@ extension HomeViewController: View {
     }
     
     private func bindAction(_ reactor: HomeReactor) {
-        requestTrigger
+        loadTrigger
             .map { .load }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.contentOffset.withUnretained(self)
+            .filter { $0.0.collectionView.isNearBottomEdge() }
+            .map { _ in HomeReactor.Action.load }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         

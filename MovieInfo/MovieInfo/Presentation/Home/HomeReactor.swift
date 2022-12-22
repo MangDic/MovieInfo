@@ -28,6 +28,7 @@ class HomeReactor: Reactor, Stepper {
     
     struct State {
         var movies = [Movie]()
+        var currentPage = 1
     }
     
     var initialState = State()
@@ -35,7 +36,8 @@ class HomeReactor: Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .load:
-            return loadMovies().flatMap { movies -> Observable<Mutation> in
+            print("Load! page: \(initialState.currentPage)")
+            return loadMovies(page: initialState.currentPage).flatMap { movies -> Observable<Mutation> in
                 return Observable.just(.loadMovies(movies: movies))
             }
         case .detail(let movie):
@@ -49,14 +51,15 @@ class HomeReactor: Reactor, Stepper {
         switch mutation {
         case .loadMovies(let movies):
             newState.movies = movies
+            initialState.currentPage += 1
         }
         return newState
     }
     
-    private func loadMovies() -> Observable<[Movie]> {
+    private func loadMovies(page: Int) -> Observable<[Movie]> {
         return Observable<[Movie]>.create { observer in
             NetworkService
-                .getMovies(page: 1, count: 30)
+                .getMovies(page: page, count: 20)
                 .subscribe(onSuccess: { data in
                     var movieArr = [Movie]()
                     let movies = data.hoppin.movies.movie
