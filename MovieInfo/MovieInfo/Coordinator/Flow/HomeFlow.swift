@@ -9,7 +9,9 @@ import RxFlow
 import UIKit
 
 class HomeFlow: Flow {
-    lazy var rootViewController = UINavigationController()
+    lazy var rootViewController = UINavigationController().then {
+        $0.navigationBar.isHidden = true
+    }
     
     var root: Presentable {
         return self.rootViewController
@@ -23,29 +25,31 @@ class HomeFlow: Flow {
     
     func navigate(to step: RxFlow.Step) -> RxFlow.FlowContributors {
         guard let step = step as? HomeSteps else { return .none }
-        
         switch step {
         case .initialized:
             return setupHomeScreen()
-        case .detail(let data):
-            return navigateToDetailScreen(data: data)
+        case .detail(let id):
+            return navigateToDetailScreen(id: id)
         case .exit:
             return popViewContoller()
+        default:
+            return .none
         }
     }
     
     private func setupHomeScreen() -> FlowContributors {
         let homeVC = HomeViewController(reactor: reactor)
+        
         rootViewController.pushViewController(homeVC, animated: false)
         return .none
     }
     
-    private func navigateToDetailScreen(data: Movie) -> FlowContributors {
-        let reactor = DetailReactor(movie: data)
-        let detailVC = DetailViewController(reactor: reactor)
+    private func navigateToDetailScreen(id: Int) -> FlowContributors {
+        let flow = DetailFlow(rootViewController: self.rootViewController)
         
-        rootViewController.pushViewController(detailVC, animated: false)
-        return .none
+        let nextStep = OneStepper(withSingleStep: HomeSteps.detailInitialized(id: id))
+        
+        return .one(flowContributor: .contribute(withNextPresentable: flow, withNextStepper: nextStep))
     }
     
     private func popViewContoller() -> FlowContributors {

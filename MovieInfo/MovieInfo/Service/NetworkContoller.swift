@@ -8,5 +8,7 @@
 import Foundation
 
 class NetworkController {
-    static let baseUrl = "http://115.68.183.178:2029"
+    static let baseUrl = "https://api.themoviedb.org/3/"
+    static let imageUrl = "https://image.tmdb.org/t/p/w400"
+    static let apiKey = "dc15edbff1b9008c85eeaaff375f0d37"
 }

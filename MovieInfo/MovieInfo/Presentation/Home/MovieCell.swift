@@ -26,7 +26,7 @@ class MovieCell: UICollectionViewCell {
     }
     
     func configure(data: Movie) {
-        if let urlStr = data.thumbnailImage, let url = URL(string: urlStr) {
+        if let url = URL(string: NetworkController.imageUrl + data.poster_path) {
             DispatchQueue.main.async {
                 self.thumbNail.kf.setImage(with: url)
             }

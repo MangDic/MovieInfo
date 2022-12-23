@@ -32,15 +32,23 @@ class InitFlow: Flow {
     
     private func setupTabBar() -> FlowContributors{
         let homeReactor = HomeReactor()
-        let homeFlow = HomeFlow(reactor: homeReactor)
         
-        let homeItem = UITabBarItem(title: "Home", image: UIImage.init(systemName: "house"), tag: 0)
+        let homeFlow = HomeFlow(reactor: homeReactor)
+        let searchFlow = SearchFlow()
+        
+        let homeItem = UITabBarItem(title: "트랜드", image: UIImage.init(systemName: "house"), tag: 0)
         homeFlow.rootViewController.tabBarItem = homeItem
         
-        Flows.use([homeFlow], when: .created, block: { root in
+        let searchItem = UITabBarItem(title: "검색", image: UIImage.init(systemName: "magnifyingglass"), tag: 0)
+        searchFlow.rootViewController.tabBarItem = searchItem
+        
+        Flows.use([homeFlow, searchFlow], when: .created, block: { root in
             self.rootViewController.setViewControllers(root, animated: false)
         })
         
-        return .multiple(flowContributors: [.contribute(withNextPresentable: homeFlow, withNextStepper: homeReactor)])
+        return .multiple(flowContributors: [
+            .contribute(withNextPresentable: homeFlow, withNextStepper: homeReactor),
+            .contribute(withNextPresentable: searchFlow, withNextStepper: OneStepper(withSingleStep: SearchSteps.initialized))
+        ])
     }
 }

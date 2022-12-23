@@ -9,7 +9,11 @@ import Foundation
 import RxSwift
 
 struct NetworkService {
-    static func getMovies(page: Int, count: Int) -> Single<RequestType>{
-        return APIClient.request(.loadMovie(page: page, count: count))
+    static func getMovies() -> Single<TrendMovie>{
+        return APIClient.request(.loadMovie)
+    }
+    
+    static func getMovieDetail(id: Int) -> Single<DetailMovie> {
+        return APIClient.request(.detail(id: id))
     }
 }

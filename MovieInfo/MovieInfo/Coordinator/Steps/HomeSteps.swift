@@ -9,6 +9,7 @@ import RxFlow
 
 enum HomeSteps: Step {
     case initialized
-    case detail(data: Movie)
+    case detail(id: Int)
+    case detailInitialized(id: Int)
     case exit
 }

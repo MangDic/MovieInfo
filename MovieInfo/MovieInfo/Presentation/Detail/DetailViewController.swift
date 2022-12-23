@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
     
     let loadTrigger = PublishRelay<Void>()
     
-    let movieRelay = PublishRelay<Movie>()
+    let movieRelay = PublishRelay<DetailMovie?>()
     
     init(reactor: DetailReactor) {
         defer { self.reactor = reactor }
@@ -37,37 +37,29 @@ class DetailViewController: UIViewController {
         loadTrigger.accept(())
     }
     
-    func setupDI(movie: Movie) {
+    func setupDI(movie: DetailMovie) {
         movieRelay.accept(movie)
     }
     
     private func bind() {
         movieRelay.subscribe(onNext: { [weak self] movie in
             guard let `self` = self else { return }
-            
+            guard let movie = movie else { return }
             DispatchQueue.main.async {
-                if let urlStr = movie.thumbnailImage, let url = URL(string: urlStr) {
+                if let url = URL(string: NetworkController.imageUrl + movie.poster_path) {
                     self.thumbNail.kf.setImage(with: url)
                 }
-                
-                if let title = movie.title {
-                    self.titleLabel.text = title
-                }
-                
-                if let genre = movie.genreNames {
-                    self.genreLabel.text = genre
-                }
-                
-                if let rate = movie.ratingAverage {
-                    self.rateLabel.text = "평점 " + rate
-                }
-                
-                if let link = movie.linkUrl {
-                    self.linkLabel.text = link
-                }
+                self.titleLabel.text = movie.title
+                self.tagLabel.text = movie.tagline
+                self.rateLabel.text = "평점: \(movie.vote_average)"
+                self.runtimeLabel.text = "상영시간: \(movie.runtime)분"
+                self.releaseDateLabel.text = movie.release_date
+                self.overviewLabel.text = movie.overview
             }
         }).disposed(by: disposeBag)
     }
+    
+    lazy var scrollView = UIScrollView()
     
     lazy var contentStack = UIStackView().then {
         $0.axis = .vertical
@@ -79,7 +71,13 @@ class DetailViewController: UIViewController {
     }
     
     lazy var titleLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        $0.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        $0.textColor = .white
+        $0.textAlignment = .left
+    }
+    
+    lazy var tagLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         $0.textColor = .white
         $0.textAlignment = .left
     }
@@ -100,41 +98,70 @@ class DetailViewController: UIViewController {
         $0.textAlignment = .left
     }
     
-    lazy var divider = UIView().then {
-        $0.backgroundColor = .white
+    lazy var overviewLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        $0.textColor = .white
+        $0.textAlignment = .left
+        $0.numberOfLines = 0
     }
     
-    lazy var linkLabel = UILabel().then {
+    lazy var runtimeLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         $0.textColor = .white
         $0.textAlignment = .left
-        $0.numberOfLines = 3
+        $0.numberOfLines = 1
+    }
+    
+    lazy var releaseDateLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        $0.textColor = .white
+        $0.textAlignment = .left
+        $0.numberOfLines = 1
     }
     
     private func setupLayout() {
         view.backgroundColor = .black
         
-        view.addSubview(contentStack)
+        view.addSubview(scrollView)
+        
+        scrollView.addSubview(contentStack)
         
         contentStack.addArrangedSubview(thumbNail)
         contentStack.addArrangedSubview(titleLabel)
+        contentStack.addArrangedSubview(tagLabel)
         contentStack.addArrangedSubview(infoStack)
-        contentStack.addArrangedSubview(linkLabel)
+        contentStack.addArrangedSubview(overviewLabel)
         contentStack.addArrangedSubview(UIView())
         
-        infoStack.addArrangedSubview(genreLabel)
-        infoStack.addArrangedSubview(divider)
         infoStack.addArrangedSubview(rateLabel)
+        createDivider(infoStack)
+        infoStack.addArrangedSubview(runtimeLabel)
+        createDivider(infoStack)
+        infoStack.addArrangedSubview(releaseDateLabel)
         infoStack.addArrangedSubview(UIView())
         
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(10)
+        }
+        
         contentStack.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.top.bottom.equalTo(scrollView.contentLayoutGuide)
+            $0.leading.trailing.equalTo(scrollView.frameLayoutGuide)
+            $0.width.equalTo(view.frame.width).priority(.high)
+            $0.width.equalTo(scrollView.contentLayoutGuide).priority(.low)
         }
         
         thumbNail.snp.makeConstraints {
             $0.height.equalTo(self.view.frame.width * 1.5)
         }
+    }
+    
+    private func createDivider(_ superView: UIStackView) {
+        let divider = UIView().then {
+            $0.backgroundColor = .white
+        }
+        superView.addArrangedSubview(divider)
         
         divider.snp.makeConstraints {
             $0.width.equalTo(1)

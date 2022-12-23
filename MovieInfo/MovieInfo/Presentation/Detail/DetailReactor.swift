@@ -6,10 +6,13 @@
 //
 
 import ReactorKit
+import Foundation
 
 class DetailReactor: Reactor {
-    init(movie: Movie) {
-        initialState.movie = movie
+    var disposeBag = DisposeBag()
+    
+    init(id: Int) {
+        initialState = State(id: id)
     }
     
     enum Action {
@@ -17,19 +20,22 @@ class DetailReactor: Reactor {
     }
     
     enum Mutation {
-        case setMovie(movie: Movie)
+        case setMovie(movie: DetailMovie)
     }
     
     struct State {
-        var movie = Movie()
+        var id: Int
+        var movie: DetailMovie?
     }
     
-    var initialState = State()
+    var initialState: State
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .load:
-            return Observable.just(.setMovie(movie: initialState.movie))
+            return loadDetail().flatMap { movie -> Observable<Mutation> in
+                return Observable.just(.setMovie(movie: movie))
+            }
         }
     }
     
@@ -39,6 +45,18 @@ class DetailReactor: Reactor {
         case .setMovie(let movie):
             newState.movie = movie
         }
-        return state
+        return newState
+    }
+    
+    private func loadDetail() -> Observable<DetailMovie> {
+        return Observable<DetailMovie>.create { observer in
+            NetworkService
+                .getMovieDetail(id: self.initialState.id)
+                .subscribe(onSuccess: { movie in
+                    observer.onNext(movie)
+                    observer.onCompleted()
+                }).disposed(by: self.disposeBag)
+            return Disposables.create()
+        }
     }
 }

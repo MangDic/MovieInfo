@@ -7,22 +7,34 @@
 
 import Foundation
 
-class RequestType: Codable {
-    let hoppin: Hoppin
+struct TrendMovie: Codable {
+    let results: [Movie]
+    let page: Int
 }
 
-class Hoppin: Codable {
-    let movies: Movies
+struct Movie: Codable {
+    let adult: Bool
+    let backdrop_path: String?
+    let id: Int
+    let title: String
+    let overview: String
+    let poster_path: String
+    let media_type : String
+    let genre_ids: [Int]
+    let release_date: String
+    let vote_average: Double
 }
 
-class Movies: Codable {
-    var movie: [Movie]
-}
-
-struct Movie: Codable, Hashable {
-    var genreNames: String?
-    var linkUrl: String?
-    var thumbnailImage: String?
-    var title: String?
-    var ratingAverage: String?
+struct DetailMovie: Codable {
+    var id: Int
+    var title: String
+    var vote_average: Double
+    var runtime: Int
+    var release_date: String
+    var tagline: String
+    var status: String
+    var overview: String
+    var homepage: String
+    var imdb_id: String
+    var poster_path: String
 }

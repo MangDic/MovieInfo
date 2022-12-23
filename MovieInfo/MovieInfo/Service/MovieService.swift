@@ -9,7 +9,8 @@ import Moya
 import Foundation
 
 enum MovieService {
-    case loadMovie(page: Int, count: Int)
+    case loadMovie
+    case detail(id: Int)
 }
 
 extension MovieService: TargetType {
@@ -20,29 +21,27 @@ extension MovieService: TargetType {
     var path: String {
         switch self {
         case .loadMovie:
-            return "/hoppin/movies"
+            return "/trending/movie/week"
+        case .detail(let id):
+            return "movie/\(id)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .loadMovie:
+        case .loadMovie, .detail:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .loadMovie(let page, let count):
-            let params: [String: Any] = [
-                "order": "releasedateasc",
-                "count": count,
-                "page": page,
-                "version": 1,
-                "genreId": ""
+        default:
+            let params = [
+                "api_key":"\(NetworkController.apiKey)",
+                "language": "ko"
             ]
-            
-            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+                        return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }
     }
     

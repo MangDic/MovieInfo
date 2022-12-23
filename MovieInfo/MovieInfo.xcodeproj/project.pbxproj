@@ -38,7 +38,9 @@
 		DA413F8A2952ED2E00DC9F63 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F892952ED2E00DC9F63 /* MovieCell.swift */; };
 		DA413F8C2952F58D00DC9F63 /* DetailReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F8B2952F58D00DC9F63 /* DetailReactor.swift */; };
 		DA413F902953050B00DC9F63 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F8F2953050B00DC9F63 /* SearchViewController.swift */; };
-		DA413F93295306E500DC9F63 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F92295306E500DC9F63 /* UIScrollView+.swift */; };
+		DA413F952954367C00DC9F63 /* SearchFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F942954367C00DC9F63 /* SearchFlow.swift */; };
+		DA413F97295436C900DC9F63 /* SearchSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F96295436C900DC9F63 /* SearchSteps.swift */; };
+		DA413F992954514200DC9F63 /* DetailFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F982954514200DC9F63 /* DetailFlow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +87,9 @@
 		DA413F892952ED2E00DC9F63 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		DA413F8B2952F58D00DC9F63 /* DetailReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReactor.swift; sourceTree = "<group>"; };
 		DA413F8F2953050B00DC9F63 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		DA413F92295306E500DC9F63 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
+		DA413F942954367C00DC9F63 /* SearchFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlow.swift; sourceTree = "<group>"; };
+		DA413F96295436C900DC9F63 /* SearchSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSteps.swift; sourceTree = "<group>"; };
+		DA413F982954514200DC9F63 /* DetailFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +212,8 @@
 			children = (
 				DA413F672951722E00DC9F63 /* InitFlow.swift */,
 				DA413F6B2951732D00DC9F63 /* HomeFlow.swift */,
+				DA413F942954367C00DC9F63 /* SearchFlow.swift */,
+				DA413F982954514200DC9F63 /* DetailFlow.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -217,6 +223,7 @@
 			children = (
 				DA413F69295172A600DC9F63 /* MainSteps.swift */,
 				DA413F802952DC7600DC9F63 /* HomeSteps.swift */,
+				DA413F96295436C900DC9F63 /* SearchSteps.swift */,
 			);
 			path = Steps;
 			sourceTree = "<group>";
@@ -278,7 +285,6 @@
 		DA413F91295306D600DC9F63 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DA413F92295306E500DC9F63 /* UIScrollView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -435,6 +441,7 @@
 			files = (
 				DA413F7A2951801400DC9F63 /* Movie.swift in Sources */,
 				DA413F8C2952F58D00DC9F63 /* DetailReactor.swift in Sources */,
+				DA413F992954514200DC9F63 /* DetailFlow.swift in Sources */,
 				DA413F682951722E00DC9F63 /* InitFlow.swift in Sources */,
 				DA413F902953050B00DC9F63 /* SearchViewController.swift in Sources */,
 				DA413F1A2951700A00DC9F63 /* AppDelegate.swift in Sources */,
@@ -442,7 +449,8 @@
 				DA413F6A295172A600DC9F63 /* MainSteps.swift in Sources */,
 				DA413F73295178FD00DC9F63 /* NetworkContoller.swift in Sources */,
 				DA413F6E295173F600DC9F63 /* AppStepper.swift in Sources */,
-				DA413F93295306E500DC9F63 /* UIScrollView+.swift in Sources */,
+				DA413F97295436C900DC9F63 /* SearchSteps.swift in Sources */,
+				DA413F952954367C00DC9F63 /* SearchFlow.swift in Sources */,
 				DA413F862952DF1F00DC9F63 /* HomeReactor.swift in Sources */,
 				DA413F6C2951732D00DC9F63 /* HomeFlow.swift in Sources */,
 				DA413F8A2952ED2E00DC9F63 /* MovieCell.swift in Sources */,

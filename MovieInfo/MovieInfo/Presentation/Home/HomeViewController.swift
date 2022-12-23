@@ -21,7 +21,8 @@ class HomeViewController: UIViewController {
     let loadTrigger = PublishRelay<Void>()
     
     let movieRelay = BehaviorRelay<[Movie]>(value: [])
-    let isScrollingRelay = BehaviorRelay<Bool>(value: false)
+    let loadRelay = PublishRelay<Bool>()
+    var isLoading = false
     
     let flowLayout = UICollectionViewFlowLayout()
     
@@ -45,7 +46,6 @@ class HomeViewController: UIViewController {
         setupLayout()
         loadTrigger.accept(())
     }
-    
     private func setupLayout() {
         view.backgroundColor = .lightGray
         view.addSubview(collectionView)
@@ -74,8 +74,19 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeViewController: UIScrollViewDelegate {
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        print("End")
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        if currentOffset == 0 { return }
+        let maxOffset = scrollView.contentSize.height - scrollView.frame.height
+        
+        if currentOffset >= maxOffset - 40 && !isLoading {
+            isLoading = true
+            loadRelay.accept(true)
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isLoading = false
     }
 }
 
@@ -91,15 +102,15 @@ extension HomeViewController: View {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        collectionView.rx.contentOffset.withUnretained(self)
-            .filter { $0.0.collectionView.isNearBottomEdge() }
-            .map { _ in HomeReactor.Action.load }
+        loadRelay
+            .filter { $0 == true }
+            .map { _ in .load }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         collectionView.rx
             .modelSelected(Movie.self)
-            .map { Reactor.Action.detail(movie: $0) }
+            .map { Reactor.Action.detail(id: $0.id) }
             .bind(to: reactor.action )
             .disposed(by: disposeBag)
     }

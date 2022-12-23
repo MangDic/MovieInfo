@@ -19,7 +19,7 @@ class HomeReactor: Reactor, Stepper {
     
     enum Action {
         case load
-        case detail(movie: Movie)
+        case detail(id: Int)
     }
     
     enum Mutation {
@@ -36,12 +36,11 @@ class HomeReactor: Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .load:
-            print("Load! page: \(initialState.currentPage)")
             return loadMovies(page: initialState.currentPage).flatMap { movies -> Observable<Mutation> in
                 return Observable.just(.loadMovies(movies: movies))
             }
-        case .detail(let movie):
-            steps.accept(HomeSteps.detail(data: movie))
+        case .detail(let id):
+            steps.accept(HomeSteps.detail(id: id))
             return .empty()
         }
     }
@@ -50,7 +49,7 @@ class HomeReactor: Reactor, Stepper {
         var newState = state
         switch mutation {
         case .loadMovies(let movies):
-            newState.movies = movies
+            newState.movies += movies
             initialState.currentPage += 1
         }
         return newState
@@ -59,10 +58,10 @@ class HomeReactor: Reactor, Stepper {
     private func loadMovies(page: Int) -> Observable<[Movie]> {
         return Observable<[Movie]>.create { observer in
             NetworkService
-                .getMovies(page: page, count: 20)
+                .getMovies()
                 .subscribe(onSuccess: { data in
                     var movieArr = [Movie]()
-                    let movies = data.hoppin.movies.movie
+                    let movies = data.results
                     for movie in movies {
                         movieArr.append(movie)
                     }

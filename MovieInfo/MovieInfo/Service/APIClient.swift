@@ -22,6 +22,9 @@ struct APIClient {
                     switch event {
                     case .success(let response):
                         do {
+                            if let json = try? JSONSerialization.jsonObject(with: response.data, options: []) as? [String : Any] {
+                                
+                            }
                             let data = try response.map(T.self)
                             observer(.success(data))
                         }
@@ -36,7 +39,7 @@ struct APIClient {
                 observable.dispose()
             }
         }.observe(on: MainScheduler.instance)
-
+        
         return request
     }
 }
