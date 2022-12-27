@@ -21,8 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         coordinator.coordinate(flow: initFlow, with: appStepper)
         
         window.rootViewController = initFlow.rootViewController
-        window.backgroundColor = .white
+        window.backgroundColor = .black
         window.makeKeyAndVisible()
+        
+        let _ = GenreManager.shared
         return true
     }
 }

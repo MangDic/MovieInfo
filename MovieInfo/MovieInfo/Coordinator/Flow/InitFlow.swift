@@ -13,7 +13,7 @@ class InitFlow: Flow {
         $0.tabBar.barTintColor = .black
         $0.tabBar.selectedImageTintColor = .white
         $0.tabBar.tintColor = .white
-        $0.tabBar.unselectedItemTintColor = #colorLiteral(red: 0.9076858163, green: 0.9191125035, blue: 0.9189115167, alpha: 1)
+        $0.tabBar.unselectedItemTintColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
     }
     var root: Presentable {
         return self.rootViewController
@@ -39,7 +39,7 @@ class InitFlow: Flow {
         let homeItem = UITabBarItem(title: "트랜드", image: UIImage.init(systemName: "house"), tag: 0)
         homeFlow.rootViewController.tabBarItem = homeItem
         
-        let searchItem = UITabBarItem(title: "검색", image: UIImage.init(systemName: "magnifyingglass"), tag: 0)
+        let searchItem = UITabBarItem(title: "검색", image: UIImage.init(systemName: "magnifyingglass"), tag: 1)
         searchFlow.rootViewController.tabBarItem = searchItem
         
         Flows.use([homeFlow, searchFlow], when: .created, block: { root in

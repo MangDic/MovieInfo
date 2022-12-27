@@ -7,8 +7,16 @@
 
 import ReactorKit
 import Foundation
+import RxFlow
+import RxCocoa
 
-class DetailReactor: Reactor {
+class DetailReactor: Reactor, Stepper {
+    var steps = PublishRelay<Step>()
+    
+    var initialStep: Step {
+        return HomeSteps.detailInitialized
+    }
+    
     var disposeBag = DisposeBag()
     
     init(id: Int) {
@@ -17,6 +25,7 @@ class DetailReactor: Reactor {
     
     enum Action {
         case load
+        case back
     }
     
     enum Mutation {
@@ -36,6 +45,9 @@ class DetailReactor: Reactor {
             return loadDetail().flatMap { movie -> Observable<Mutation> in
                 return Observable.just(.setMovie(movie: movie))
             }
+        case .back:
+            steps.accept(HomeSteps.exit)
+            return .empty()
         }
     }
     

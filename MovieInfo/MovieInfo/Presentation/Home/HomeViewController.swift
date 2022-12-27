@@ -44,8 +44,10 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
+        navigationController?.navigationBar.topItem?.title = "트랜드"
         loadTrigger.accept(())
     }
+    
     private func setupLayout() {
         view.backgroundColor = .lightGray
         view.addSubview(collectionView)

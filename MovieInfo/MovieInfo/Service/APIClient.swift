@@ -22,9 +22,9 @@ struct APIClient {
                     switch event {
                     case .success(let response):
                         do {
-                            if let json = try? JSONSerialization.jsonObject(with: response.data, options: []) as? [String : Any] {
-                                
-                            }
+//                            if let json = try? JSONSerialization.jsonObject(with: response.data, options: []) as? [String : Any] {
+//                                print(json)
+//                            }
                             let data = try response.map(T.self)
                             observer(.success(data))
                         }

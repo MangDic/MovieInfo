@@ -31,10 +31,17 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tabBarController?.tabBar.isHidden = true
         setupLayout()
         bind()
+        
         loadTrigger.accept(())
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        tabBarController?.tabBar.isHidden = false
     }
     
     func setupDI(movie: DetailMovie) {
@@ -50,16 +57,57 @@ class DetailViewController: UIViewController {
                     self.thumbNail.kf.setImage(with: url)
                 }
                 self.titleLabel.text = movie.title
+                self.stickeyView?.titleLabel.text = movie.title
+                self.navigationController?.navigationBar.topItem?.title = movie.title
                 self.tagLabel.text = movie.tagline
                 self.rateLabel.text = "평점: \(movie.vote_average)"
                 self.runtimeLabel.text = "상영시간: \(movie.runtime)분"
                 self.releaseDateLabel.text = movie.release_date
                 self.overviewLabel.text = movie.overview
+                
+                if movie.genres.count == 0 { return }
+                var cnt = 0
+                for genre in movie.genres {
+                    if cnt == 6 { break }
+                    guard let view = self.createTagView(id: genre.id) else { continue }
+                    self.genreStack.addArrangedSubview(view)
+                    cnt += 1
+                }
+                self.genreStack.addArrangedSubview(UIView())
+            
             }
         }).disposed(by: disposeBag)
+        
+        guard let reactor = reactor else { return }
+        stickeyView?.backButton.rx
+            .tap.map{ .back }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
-    lazy var scrollView = UIScrollView()
+    private func createTagView(id: Int) -> UIView? {
+        guard let tag = GenreManager.shared.genreDic[id] else { return nil }
+        let view = UIView().then {
+            $0.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+            $0.layer.cornerRadius = 4
+        }
+        
+        let label = UILabel().then {
+            $0.text = tag
+            $0.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+            $0.textColor = .white
+        }
+        
+        view.addSubview(label)
+        
+        label.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(6)
+            $0.top.bottom.equalToSuperview().inset(3)
+        }
+        return view
+    }
+    
+    var stickeyView: StickeyScrollView?
     
     lazy var contentStack = UIStackView().then {
         $0.axis = .vertical
@@ -119,17 +167,23 @@ class DetailViewController: UIViewController {
         $0.numberOfLines = 1
     }
     
+    lazy var genreStack = UIStackView().then {
+        $0.spacing = 5
+    }
+    
     private func setupLayout() {
         view.backgroundColor = .black
+        stickeyView = StickeyScrollView(contentView: contentStack)
         
-        view.addSubview(scrollView)
+        guard let stickeyView = stickeyView else { return }
         
-        scrollView.addSubview(contentStack)
+        view.addSubview(stickeyView)
         
         contentStack.addArrangedSubview(thumbNail)
         contentStack.addArrangedSubview(titleLabel)
         contentStack.addArrangedSubview(tagLabel)
         contentStack.addArrangedSubview(infoStack)
+        contentStack.addArrangedSubview(genreStack)
         contentStack.addArrangedSubview(overviewLabel)
         contentStack.addArrangedSubview(UIView())
         
@@ -140,16 +194,9 @@ class DetailViewController: UIViewController {
         infoStack.addArrangedSubview(releaseDateLabel)
         infoStack.addArrangedSubview(UIView())
         
-        scrollView.snp.makeConstraints {
-            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview().inset(10)
-        }
-        
-        contentStack.snp.makeConstraints {
-            $0.top.bottom.equalTo(scrollView.contentLayoutGuide)
-            $0.leading.trailing.equalTo(scrollView.frameLayoutGuide)
-            $0.width.equalTo(view.frame.width).priority(.high)
-            $0.width.equalTo(scrollView.contentLayoutGuide).priority(.low)
+        stickeyView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         thumbNail.snp.makeConstraints {

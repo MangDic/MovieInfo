@@ -10,6 +10,9 @@ import UIKit
 
 class HomeFlow: Flow {
     lazy var rootViewController = UINavigationController().then {
+//        $0.navigationBar.barTintColor = .black
+//        $0.navigationBar.tintColor = .white
+//        $0.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         $0.navigationBar.isHidden = true
     }
     
@@ -45,11 +48,10 @@ class HomeFlow: Flow {
     }
     
     private func navigateToDetailScreen(id: Int) -> FlowContributors {
-        let flow = DetailFlow(rootViewController: self.rootViewController)
+        let reactor = DetailReactor(id: id)
+        let flow = DetailFlow(rootViewController: self.rootViewController, reactor: reactor)
         
-        let nextStep = OneStepper(withSingleStep: HomeSteps.detailInitialized(id: id))
-        
-        return .one(flowContributor: .contribute(withNextPresentable: flow, withNextStepper: nextStep))
+        return .one(flowContributor: .contribute(withNextPresentable: flow, withNextStepper: reactor))
     }
     
     private func popViewContoller() -> FlowContributors {

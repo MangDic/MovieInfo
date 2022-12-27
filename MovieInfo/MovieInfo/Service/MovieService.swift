@@ -9,8 +9,10 @@ import Moya
 import Foundation
 
 enum MovieService {
-    case loadMovie
+    case loadMovie(page: Int)
     case detail(id: Int)
+    case search(query: String)
+    case movie_genres
 }
 
 extension MovieService: TargetType {
@@ -24,18 +26,36 @@ extension MovieService: TargetType {
             return "/trending/movie/week"
         case .detail(let id):
             return "movie/\(id)"
+        case .search:
+            return "/search/movie"
+        case .movie_genres:
+            return "/genre/movie/list"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .loadMovie, .detail:
+        default:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
+        case .search(let query):
+            let params = [
+                "api_key":"\(NetworkController.apiKey)",
+                "language": "ko",
+                "query": query
+            ]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        case .loadMovie(let page):
+            let params = [
+                "api_key":"\(NetworkController.apiKey)",
+                "language": "ko",
+                "page": "\(page)"
+            ]
+                        return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         default:
             let params = [
                 "api_key":"\(NetworkController.apiKey)",

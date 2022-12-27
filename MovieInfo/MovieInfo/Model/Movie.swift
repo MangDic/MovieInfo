@@ -37,4 +37,29 @@ struct DetailMovie: Codable {
     var homepage: String
     var imdb_id: String
     var poster_path: String
+    var genres: [Genre]
 }
+
+struct SearchMovie: Codable {
+    var page: Int?
+    var results: [ResultMovie?]?
+}
+
+struct ResultMovie: Codable {
+    var original_title: String
+    var id: Int
+    var poster_path: String?
+    var vote_average: Double
+    var overview: String
+    var genre_ids: [Int]
+}
+
+struct GenreList: Codable {
+    let genres: Array<Genre>
+}
+
+struct Genre: Codable {
+    let id: Int
+    let name: String
+}
+

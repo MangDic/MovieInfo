@@ -36,7 +36,7 @@ class HomeReactor: Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .load:
-            return loadMovies(page: initialState.currentPage).flatMap { movies -> Observable<Mutation> in
+            return loadMovies().flatMap { movies -> Observable<Mutation> in
                 return Observable.just(.loadMovies(movies: movies))
             }
         case .detail(let id):
@@ -55,10 +55,11 @@ class HomeReactor: Reactor, Stepper {
         return newState
     }
     
-    private func loadMovies(page: Int) -> Observable<[Movie]> {
+    private func loadMovies() -> Observable<[Movie]> {
         return Observable<[Movie]>.create { observer in
+            //guard let `self` = self else { return }
             NetworkService
-                .getMovies()
+                .getMovies(page: self.initialState.currentPage)
                 .subscribe(onSuccess: { data in
                     var movieArr = [Movie]()
                     let movies = data.results

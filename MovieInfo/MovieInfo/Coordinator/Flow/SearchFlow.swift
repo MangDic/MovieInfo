@@ -10,7 +10,9 @@ import RxFlow
 import UIKit
 
 class SearchFlow: Flow {
-    lazy var rootViewController = UINavigationController()
+    lazy var rootViewController = UINavigationController().then {
+        $0.navigationBar.isHidden = true
+    }
     
     var root: Presentable {
         return rootViewController

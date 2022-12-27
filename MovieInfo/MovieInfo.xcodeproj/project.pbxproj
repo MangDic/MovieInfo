@@ -41,6 +41,11 @@
 		DA413F952954367C00DC9F63 /* SearchFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F942954367C00DC9F63 /* SearchFlow.swift */; };
 		DA413F97295436C900DC9F63 /* SearchSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F96295436C900DC9F63 /* SearchSteps.swift */; };
 		DA413F992954514200DC9F63 /* DetailFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F982954514200DC9F63 /* DetailFlow.swift */; };
+		DA413F9D2955655D00DC9F63 /* StickyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F9C2955655D00DC9F63 /* StickyScrollView.swift */; };
+		DA413FA029558D6800DC9F63 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413F9F29558D6800DC9F63 /* SearchResultCell.swift */; };
+		DA413FA22955922200DC9F63 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA12955922200DC9F63 /* UITextField+.swift */; };
+		DA413FA42955A74E00DC9F63 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA32955A74E00DC9F63 /* UIStackView+.swift */; };
+		DA413FA62955A81B00DC9F63 /* GenreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA52955A81B00DC9F63 /* GenreManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +95,11 @@
 		DA413F942954367C00DC9F63 /* SearchFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlow.swift; sourceTree = "<group>"; };
 		DA413F96295436C900DC9F63 /* SearchSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSteps.swift; sourceTree = "<group>"; };
 		DA413F982954514200DC9F63 /* DetailFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFlow.swift; sourceTree = "<group>"; };
+		DA413F9C2955655D00DC9F63 /* StickyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyScrollView.swift; sourceTree = "<group>"; };
+		DA413F9F29558D6800DC9F63 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		DA413FA12955922200DC9F63 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		DA413FA32955A74E00DC9F63 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		DA413FA52955A81B00DC9F63 /* GenreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +159,7 @@
 		DA413F182951700A00DC9F63 /* MovieInfo */ = {
 			isa = PBXGroup;
 			children = (
+				DA413F9E29558CCC00DC9F63 /* Foundation */,
 				DA413F91295306D600DC9F63 /* Extensions */,
 				DA413F782951801000DC9F63 /* Model */,
 				DA413F71295178E800DC9F63 /* Service */,
@@ -243,6 +254,7 @@
 				DA413F742951795D00DC9F63 /* MovieService.swift */,
 				DA413F7629517B7200DC9F63 /* APIClient.swift */,
 				DA413F7B2952911400DC9F63 /* NetworkService.swift */,
+				DA413FA52955A81B00DC9F63 /* GenreManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -278,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				DA413F8F2953050B00DC9F63 /* SearchViewController.swift */,
+				DA413F9F29558D6800DC9F63 /* SearchResultCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -285,8 +298,18 @@
 		DA413F91295306D600DC9F63 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DA413FA12955922200DC9F63 /* UITextField+.swift */,
+				DA413FA32955A74E00DC9F63 /* UIStackView+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DA413F9E29558CCC00DC9F63 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				DA413F9C2955655D00DC9F63 /* StickyScrollView.swift */,
+			);
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,11 +462,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA413FA029558D6800DC9F63 /* SearchResultCell.swift in Sources */,
+				DA413FA62955A81B00DC9F63 /* GenreManager.swift in Sources */,
 				DA413F7A2951801400DC9F63 /* Movie.swift in Sources */,
 				DA413F8C2952F58D00DC9F63 /* DetailReactor.swift in Sources */,
+				DA413F9D2955655D00DC9F63 /* StickyScrollView.swift in Sources */,
 				DA413F992954514200DC9F63 /* DetailFlow.swift in Sources */,
 				DA413F682951722E00DC9F63 /* InitFlow.swift in Sources */,
 				DA413F902953050B00DC9F63 /* SearchViewController.swift in Sources */,
+				DA413FA42955A74E00DC9F63 /* UIStackView+.swift in Sources */,
 				DA413F1A2951700A00DC9F63 /* AppDelegate.swift in Sources */,
 				DA413F752951795D00DC9F63 /* MovieService.swift in Sources */,
 				DA413F6A295172A600DC9F63 /* MainSteps.swift in Sources */,
@@ -457,6 +484,7 @@
 				DA413F832952DD7000DC9F63 /* DetailViewController.swift in Sources */,
 				DA413F812952DC7600DC9F63 /* HomeSteps.swift in Sources */,
 				DA413F7729517B7200DC9F63 /* APIClient.swift in Sources */,
+				DA413FA22955922200DC9F63 /* UITextField+.swift in Sources */,
 				DA413F7C2952911400DC9F63 /* NetworkService.swift in Sources */,
 				DA413F612951718F00DC9F63 /* HomeViewController.swift in Sources */,
 			);
