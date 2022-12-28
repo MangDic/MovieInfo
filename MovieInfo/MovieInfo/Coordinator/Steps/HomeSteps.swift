@@ -12,4 +12,5 @@ enum HomeSteps: Step {
     case detail(id: Int)
     case detailInitialized
     case exit
+    case none
 }

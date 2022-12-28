@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 import Then
+import ReactorKit
 
 class SearchViewController: UIViewController {
     var disposeBag = DisposeBag()
@@ -50,6 +51,13 @@ class SearchViewController: UIViewController {
                 
                 cell.configure(data: item)
             }.disposed(by: disposeBag)
+        
+//        tableView.rx
+//            .modelSelected(DetailMovie.self)
+//            .subscribe(onNext: { [weak self] item in
+//                guard let `self` = self else { return }
+//                
+//            }).disposed(by: disposeBag)
     }
     
     private func searchMovie(query: String) {
@@ -109,5 +117,29 @@ class SearchViewController: UIViewController {
         noDataLabel.snp.makeConstraints {
             $0.edges.equalTo(tableView)
         }
+    }
+}
+
+extension SearchViewController: View {
+    func bind(reactor: SearchReactor) {
+        inputField.rx.text
+            .filter { $0 != nil }
+            .map { query in .search(query: query!)}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        tableView.rx
+            .modelSelected(ResultMovie.self)
+            .map { $0.id }
+            .map { id in .detail(id: id) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        // 테이블뷰 바인딩 추가
+        reactor.state
+            .map { $0.movies }
+            .bind(onNext: tableView.rx.items(cellIdentifier: SearchResultCell.id, cellType: SearchResultCell.self) { a, b, c in
+                
+            })
     }
 }

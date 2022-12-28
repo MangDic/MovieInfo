@@ -46,6 +46,7 @@
 		DA413FA22955922200DC9F63 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA12955922200DC9F63 /* UITextField+.swift */; };
 		DA413FA42955A74E00DC9F63 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA32955A74E00DC9F63 /* UIStackView+.swift */; };
 		DA413FA62955A81B00DC9F63 /* GenreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA52955A81B00DC9F63 /* GenreManager.swift */; };
+		DA413FA8295AE8C900DC9F63 /* SearchReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA7295AE8C800DC9F63 /* SearchReactor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		DA413FA12955922200DC9F63 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		DA413FA32955A74E00DC9F63 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		DA413FA52955A81B00DC9F63 /* GenreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreManager.swift; sourceTree = "<group>"; };
+		DA413FA7295AE8C800DC9F63 /* SearchReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReactor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +293,7 @@
 			children = (
 				DA413F8F2953050B00DC9F63 /* SearchViewController.swift */,
 				DA413F9F29558D6800DC9F63 /* SearchResultCell.swift */,
+				DA413FA7295AE8C800DC9F63 /* SearchReactor.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA413FA8295AE8C900DC9F63 /* SearchReactor.swift in Sources */,
 				DA413FA029558D6800DC9F63 /* SearchResultCell.swift in Sources */,
 				DA413FA62955A81B00DC9F63 /* GenreManager.swift in Sources */,
 				DA413F7A2951801400DC9F63 /* Movie.swift in Sources */,
