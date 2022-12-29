@@ -32,9 +32,10 @@ class InitFlow: Flow {
     
     private func setupTabBar() -> FlowContributors{
         let homeReactor = HomeReactor()
+        let searchReactor = SearchReactor()
         
         let homeFlow = HomeFlow(reactor: homeReactor)
-        let searchFlow = SearchFlow()
+        let searchFlow = SearchFlow(reactor: searchReactor)
         
         let homeItem = UITabBarItem(title: "트랜드", image: UIImage.init(systemName: "house"), tag: 0)
         homeFlow.rootViewController.tabBarItem = homeItem
@@ -48,7 +49,7 @@ class InitFlow: Flow {
         
         return .multiple(flowContributors: [
             .contribute(withNextPresentable: homeFlow, withNextStepper: homeReactor),
-            .contribute(withNextPresentable: searchFlow, withNextStepper: OneStepper(withSingleStep: SearchSteps.initialized))
+            .contribute(withNextPresentable: searchFlow, withNextStepper: searchReactor)
         ])
     }
 }

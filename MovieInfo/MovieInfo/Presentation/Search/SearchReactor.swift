@@ -9,12 +9,16 @@ import Foundation
 import ReactorKit
 import RxFlow
 import RxSwift
-import RxCocoa
+import RxRelay
 
 class SearchReactor: Reactor, Stepper {
     var disposeBag = DisposeBag()
     
     var steps = PublishRelay<Step>()
+    
+    var initialStep: Step {
+        return SearchSteps.initialized
+    }
     
     enum Action {
         case search(query: String)
@@ -27,7 +31,7 @@ class SearchReactor: Reactor, Stepper {
     }
     
     struct State {
-        var movies = BehaviorRelay<[ResultMovie?]>(value: [])
+        var movies = [ResultMovie?]()
     }
     
     var initialState = State()
@@ -39,7 +43,7 @@ class SearchReactor: Reactor, Stepper {
                 return Observable.just(.loadSearchData(movies: movies.results ?? []))
             }
         case .detail(let id):
-            steps.accept(HomeSteps.detail(id: id))
+            steps.accept(SearchSteps.detail(id: id))
             return .empty()
         }
     }
@@ -61,7 +65,7 @@ class SearchReactor: Reactor, Stepper {
         var newState = state
         switch mutation {
         case .loadSearchData(let movies):
-            newState.movies.accept(movies)
+            newState.movies = movies
         default:
             print("")
         }

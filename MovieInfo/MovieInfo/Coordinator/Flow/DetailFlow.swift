@@ -25,7 +25,7 @@ class DetailFlow: Flow {
         case .detailInitialized:
             return setupDetailScreen()
         case .exit:
-            return backToHomeScreen()
+            return backToPreviousScreen()
         default:
             return .none
         }
@@ -38,7 +38,8 @@ class DetailFlow: Flow {
         return .none
     }
     
-    private func backToHomeScreen() -> FlowContributors {
-        return .end(forwardToParentFlowWithStep: HomeSteps.exit)
+    private func backToPreviousScreen() -> FlowContributors {
+        (self.root as! UINavigationController).popViewController(animated: false)
+        return .none
     }
 }

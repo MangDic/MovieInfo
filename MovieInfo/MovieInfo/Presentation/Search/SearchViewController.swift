@@ -18,6 +18,15 @@ class SearchViewController: UIViewController {
     
     var resultRelay = BehaviorRelay<[ResultMovie]>(value: [])
     
+    init(reactor: SearchReactor) {
+        defer { self.reactor = reactor }
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,13 +53,13 @@ class SearchViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        resultRelay
-            .asDriver(onErrorJustReturn: [])
-            .drive(tableView.rx.items(cellIdentifier: SearchResultCell.id)) { row, item, cell in
-                guard let cell = cell as? SearchResultCell else { return }
-                
-                cell.configure(data: item)
-            }.disposed(by: disposeBag)
+//        resultRelay
+//            .asDriver(onErrorJustReturn: [])
+//            .drive(tableView.rx.items(cellIdentifier: SearchResultCell.id)) { row, item, cell in
+//                guard let cell = cell as? SearchResultCell else { return }
+//                
+//                cell.configure(data: item)
+//            }.disposed(by: disposeBag)
         
 //        tableView.rx
 //            .modelSelected(DetailMovie.self)
@@ -135,11 +144,15 @@ extension SearchViewController: View {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        // 테이블뷰 바인딩 추가
         reactor.state
-            .map { $0.movies }
-            .bind(onNext: tableView.rx.items(cellIdentifier: SearchResultCell.id, cellType: SearchResultCell.self) { a, b, c in
-                
-            })
+            .map { _ in reactor.currentState.movies }
+            .bind(to: tableView.rx.items(
+                cellIdentifier: SearchResultCell.id,
+                cellType: SearchResultCell.self)
+            ) { index, item, cell in
+                guard let item = item else { return }
+                cell.configure(data: item)
+            }
+            .disposed(by: disposeBag)
     }
 }

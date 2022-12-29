@@ -9,4 +9,5 @@ import RxFlow
 
 enum SearchSteps: Step {
     case initialized
+    case detail(id: Int)
 }
