@@ -1,4 +1,4 @@
-# 🎬 MovieInfo!
+# 🎬 MovieInfo
  - 영화 검색 서비스
 
 ---
