@@ -47,6 +47,8 @@
 		DA413FA42955A74E00DC9F63 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA32955A74E00DC9F63 /* UIStackView+.swift */; };
 		DA413FA62955A81B00DC9F63 /* GenreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA52955A81B00DC9F63 /* GenreManager.swift */; };
 		DA413FA8295AE8C900DC9F63 /* SearchReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA413FA7295AE8C800DC9F63 /* SearchReactor.swift */; };
+		DAE54EC32989EDF70046CC1F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE54EC22989EDF70046CC1F /* UIView+.swift */; };
+		DAE54EC62989EE9B0046CC1F /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE54EC52989EE9B0046CC1F /* Resource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,8 @@
 		DA413FA32955A74E00DC9F63 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		DA413FA52955A81B00DC9F63 /* GenreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreManager.swift; sourceTree = "<group>"; };
 		DA413FA7295AE8C800DC9F63 /* SearchReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReactor.swift; sourceTree = "<group>"; };
+		DAE54EC22989EDF70046CC1F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		DAE54EC52989EE9B0046CC1F /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,9 +196,9 @@
 		DA413F5F2951717600DC9F63 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DA413F842952DF1200DC9F63 /* Home */,
 				DA413F8E2953050200DC9F63 /* Search */,
 				DA413F8D2952FD7900DC9F63 /* Detail */,
-				DA413F842952DF1200DC9F63 /* Home */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -257,6 +261,7 @@
 				DA413F7629517B7200DC9F63 /* APIClient.swift */,
 				DA413F7B2952911400DC9F63 /* NetworkService.swift */,
 				DA413FA52955A81B00DC9F63 /* GenreManager.swift */,
+				DAE54EC52989EE9B0046CC1F /* Resource.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 			children = (
 				DA413FA12955922200DC9F63 /* UITextField+.swift */,
 				DA413FA32955A74E00DC9F63 /* UIStackView+.swift */,
+				DAE54EC22989EDF70046CC1F /* UIView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -478,8 +484,10 @@
 				DA413F1A2951700A00DC9F63 /* AppDelegate.swift in Sources */,
 				DA413F752951795D00DC9F63 /* MovieService.swift in Sources */,
 				DA413F6A295172A600DC9F63 /* MainSteps.swift in Sources */,
+				DAE54EC62989EE9B0046CC1F /* Resource.swift in Sources */,
 				DA413F73295178FD00DC9F63 /* NetworkContoller.swift in Sources */,
 				DA413F6E295173F600DC9F63 /* AppStepper.swift in Sources */,
+				DAE54EC32989EDF70046CC1F /* UIView+.swift in Sources */,
 				DA413F97295436C900DC9F63 /* SearchSteps.swift in Sources */,
 				DA413F952954367C00DC9F63 /* SearchFlow.swift in Sources */,
 				DA413F862952DF1F00DC9F63 /* HomeReactor.swift in Sources */,

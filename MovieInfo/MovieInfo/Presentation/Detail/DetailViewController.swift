@@ -53,17 +53,18 @@ class DetailViewController: UIViewController {
             guard let `self` = self else { return }
             guard let movie = movie else { return }
             DispatchQueue.main.async {
-                if let url = URL(string: NetworkController.imageUrl + movie.poster_path) {
+                if let path = movie.poster_path, let url = URL(string: NetworkController.imageUrl + path) {
                     self.thumbNail.kf.setImage(with: url)
                 }
                 self.titleLabel.text = movie.title
                 self.stickeyView?.titleLabel.text = movie.title
                 self.navigationController?.navigationBar.topItem?.title = movie.title
                 self.tagLabel.text = movie.tagline
-                self.rateLabel.text = "평점: \(movie.vote_average)"
-                self.runtimeLabel.text = "상영시간: \(movie.runtime)분"
+                self.rateLabel.text = R.String.MovieDetail.average(movie.vote_average)
+                self.runtimeLabel.text = R.String.MovieDetail.runtime(movie.runtime)
                 self.releaseDateLabel.text = movie.release_date
                 self.overviewLabel.text = movie.overview
+                self.overviewLabel.isHidden = movie.overview == ""
                 
                 if movie.genres.count == 0 { return }
                 var cnt = 0
@@ -179,23 +180,22 @@ class DetailViewController: UIViewController {
         
         view.addSubview(stickeyView)
         
-        contentStack.addArrangedSubview(thumbNail)
-        contentStack.addArrangedSubview(titleLabel)
-        contentStack.addArrangedSubview(tagLabel)
-        contentStack.addArrangedSubview(infoStack)
-        contentStack.addArrangedSubview(genreStack)
-        contentStack.addArrangedSubview(overviewLabel)
-        contentStack.addArrangedSubview(UIView())
+        contentStack.addArrangedSubviews([thumbNail,
+                                          titleLabel,
+                                          tagLabel,
+                                          infoStack,
+                                          genreStack,
+                                          overviewLabel,
+                                          UIView()])
         
         infoStack.addArrangedSubview(rateLabel)
         createDivider(infoStack)
         infoStack.addArrangedSubview(runtimeLabel)
         createDivider(infoStack)
-        infoStack.addArrangedSubview(releaseDateLabel)
-        infoStack.addArrangedSubview(UIView())
+        infoStack.addArrangedSubviews([releaseDateLabel, UIView()])
         
         stickeyView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalToSuperview().inset(10)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         

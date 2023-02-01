@@ -44,7 +44,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
-        navigationController?.navigationBar.topItem?.title = "트랜드"
+        navigationController?.navigationBar.topItem?.title = R.String.Home.trend
         loadTrigger.accept(())
     }
     

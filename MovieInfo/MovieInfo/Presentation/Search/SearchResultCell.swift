@@ -69,8 +69,10 @@ class SearchResultCell: UITableViewCell {
     func configure(data: ResultMovie) {
         titleLabel.text = data.original_title
         overViewLabel.text = data.overview
-        let rateValue = data.vote_average == 0.0 ? "-점" : "\(data.vote_average)점"
-        rateLabel.text = "평점: " + rateValue
+        overViewLabel.isHidden = data.overview == ""
+        
+        let rateValue = data.vote_average == 0.0 ? "-" : "\(data.vote_average)"
+        rateLabel.text = R.String.Search.average(rateValue)
         
         DispatchQueue.main.async {
             if let path = data.poster_path,
@@ -81,13 +83,11 @@ class SearchResultCell: UITableViewCell {
         }
         
         if data.genre_ids.count == 0 { return }
-        var cnt = 0
-        for genre in data.genre_ids {
-            if cnt == 3 { break }
+        for (i, genre) in data.genre_ids.enumerated() {
+            if i == 3 { break }
             
             guard let view = createTagView(id: genre) else { continue }
             tagStack.addArrangedSubview(view)
-            cnt += 1
         }
         
         tagStack.addArrangedSubview(UIView())
@@ -121,14 +121,13 @@ class SearchResultCell: UITableViewCell {
         
         contentView.addSubview(contentStack)
         
-        contentStack.addArrangedSubview(thumbNail)
-        contentStack.addArrangedSubview(labelStack)
+        contentStack.addArrangedSubviews([thumbNail, labelStack])
         
-        labelStack.addArrangedSubview(titleLabel)
-        labelStack.addArrangedSubview(overViewLabel)
-        labelStack.addArrangedSubview(rateLabel)
-        labelStack.addArrangedSubview(tagStack)
-        labelStack.addArrangedSubview(UIView())
+        labelStack.addArrangedSubviews([titleLabel,
+                                        overViewLabel,
+                                        rateLabel,
+                                        tagStack,
+                                        UIView()])
         
         thumbNail.snp.makeConstraints {
             $0.size.equalTo(CGSize(width: 80, height: 110))

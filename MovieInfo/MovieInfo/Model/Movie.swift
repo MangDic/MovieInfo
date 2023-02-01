@@ -35,8 +35,8 @@ struct DetailMovie: Codable {
     var status: String
     var overview: String
     var homepage: String
-    var imdb_id: String
-    var poster_path: String
+    var imdb_id: String?
+    var poster_path: String?
     var genres: [Genre]
 }
 

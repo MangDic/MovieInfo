@@ -37,10 +37,10 @@ class InitFlow: Flow {
         let homeFlow = HomeFlow(reactor: homeReactor)
         let searchFlow = SearchFlow(reactor: searchReactor)
         
-        let homeItem = UITabBarItem(title: "트랜드", image: UIImage.init(systemName: "house"), tag: 0)
+        let homeItem = UITabBarItem(title: R.String.Home.trend, image: UIImage.init(systemName: "house"), tag: 0)
         homeFlow.rootViewController.tabBarItem = homeItem
         
-        let searchItem = UITabBarItem(title: "검색", image: UIImage.init(systemName: "magnifyingglass"), tag: 1)
+        let searchItem = UITabBarItem(title: R.String.Search.search, image: UIImage.init(systemName: "magnifyingglass"), tag: 1)
         searchFlow.rootViewController.tabBarItem = searchItem
         
         Flows.use([homeFlow, searchFlow], when: .created, block: { root in
